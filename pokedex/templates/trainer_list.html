@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h3>Lista de Entrenadores</h3>
+
+<div class="row">
+    {% for trainer in trainers %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+
+            {% if trainer.photo %}
+                <img src="{{ trainer.photo.url }}" class="card-img-top pokemon-img" alt="{{ trainer.name }}">
+            {% else %}
+                <img src="{% static 'pokedex/img/trainer-placeholder.svg' %}" class="card-img-top pokemon-img" alt="Sin foto">
+            {% endif %}
+
+            <div class="card-body">
+                <h5>{{ trainer.name }}</h5>
+                <p>Ciudad: {{ trainer.city }}</p>
+
+                <a href="{% url 'trainer_detail' trainer.id %}" class="btn btn-info btn-sm">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+
+                <a href="{% url 'trainer_edit' trainer.id %}" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-pen"></i>
+                </a>
+
+                <a href="{% url 'trainer_delete' trainer.id %}" class="btn btn-danger btn-sm">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <p>No hay entrenadores registrados.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

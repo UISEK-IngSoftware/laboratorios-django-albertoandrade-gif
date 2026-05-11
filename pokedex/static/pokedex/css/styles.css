@@ -1,0 +1,112 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Contenedor general para que no se estire en toda la pantalla */
+.container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 !important;
+    background-color: white;
+}
+
+/* Banner superior */
+.banner {
+    background-color: #0ca7d7;
+    width: 100%;
+    height: 260px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Logo */
+.logo-pokedex {
+    width: 560px;
+    max-width: 90%;
+    height: auto;
+    margin-top: 25px;
+}
+
+/* Menú */
+.menu {
+    text-align: left;
+    padding-left: 25px;
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+}
+
+.menu a {
+    color: #e7f8ff;
+    font-size: 12px;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* Contenido */
+.contenido {
+    padding: 0;
+}
+
+.titulo-lista {
+    font-size: 13px;
+    margin: 8px 0 10px 5px;
+}
+
+/* Cards */
+.pokemon-card {
+    border: 1px solid #ddd;
+    border-radius: 0;
+    min-height: 430px;
+    background-color: white;
+}
+
+/* Quita el zoom feo */
+.pokemon-card:hover {
+    transform: none;
+}
+
+/* Imagen del pokemon */
+.pokemon-img {
+    width: 100%;
+    height: 230px;
+    object-fit: contain;
+    padding: 15px;
+}
+
+/* Texto dentro de la card */
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.card-text {
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+/* Botones */
+.btn-sm {
+    font-size: 12px;
+    padding: 5px 9px;
+    margin-right: 3px;
+}
+
+/* Imagen en detalle */
+.detail-img {
+    width: 350px;
+    max-width: 100%;
+    object-fit: contain;
+}

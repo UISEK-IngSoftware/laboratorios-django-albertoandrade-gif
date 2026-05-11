@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h2>{{ trainer.name }}</h2>
+
+<p><strong>Edad:</strong> {{ trainer.age }}</p>
+<p><strong>Ciudad:</strong> {{ trainer.city }}</p>
+
+{% if trainer.photo %}
+    <img src="{{ trainer.photo.url }}" class="detail-img" alt="{{ trainer.name }}">
+{% else %}
+    <img src="{% static 'pokedex/img/trainer-placeholder.svg' %}" class="detail-img" alt="Sin foto">
+{% endif %}
+
+<h4 class="mt-4">Pokemones de este entrenador</h4>
+
+<ul>
+    {% for pokemon in trainer.pokemons.all %}
+        <li>
+            <a href="{% url 'pokemon_detail' pokemon.id %}">
+                {{ pokemon.name }}
+            </a>
+        </li>
+    {% empty %}
+        <li>Este entrenador no tiene pokemones registrados.</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'trainer_list' %}" class="btn btn-link">Regresar</a>
+
+{% endblock %}
