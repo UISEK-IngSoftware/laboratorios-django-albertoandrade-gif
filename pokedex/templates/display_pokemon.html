@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <h2>{{ pokemon.name }}</h2>
 <p>Has elegido el pokemon: <strong>{{ pokemon.name }}</strong></p>
+
 <h3>Características:</h3>
 
 <ul>
     <li>Tipo: {{ pokemon.type }}</li>
     <li>Peso: {{ pokemon.weight }}</li>
     <li>Altura: {{ pokemon.height }}</li>
+
     <li>
         Entrenador:
         {% if pokemon.trainer %}
@@ -22,8 +25,23 @@
 {% if pokemon.image %}
     <img src="{{ pokemon.image.url }}" class="detail-img" alt="{{ pokemon.name }}">
 {% else %}
-    <img src="{% static 'pokedex/img/pokemon-placeholder.png' %}" class="detail-img" alt="Sin imagen">
+    <img src="{% static 'pokedex/img/pokemon-placeholder.png' %}" 
+         class="detail-img" 
+         alt="Sin imagen">
 {% endif %}
+
 <br><br>
-<a href="{% url 'index' %}" class="btn btn-link">Regresar</a>
+
+<a href="{% url 'index' %}" class="btn btn-secondary">
+    <i class="fa-solid fa-arrow-left"></i> Regresar
+</a>
+
+<a href="{% url 'pokemon_edit' pokemon.id %}" class="btn btn-primary">
+    <i class="fa-solid fa-pen"></i> Editar
+</a>
+
+<a href="{% url 'pokemon_delete' pokemon.id %}" class="btn btn-danger">
+    <i class="fa-solid fa-trash"></i> Eliminar
+</a>
+
 {% endblock %}
