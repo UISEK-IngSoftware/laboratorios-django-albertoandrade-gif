@@ -28,6 +28,18 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'trainer_list' %}" class="btn btn-link">Regresar</a>
+<a href="{% url 'trainer_list' %}" class="btn btn-secondary">
+    <i class="fa-solid fa-arrow-left"></i> Regresar
+</a>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'trainer_edit' trainer.id %}" class="btn btn-primary">
+        <i class="fa-solid fa-pen"></i> Editar
+    </a>
+
+    <a href="{% url 'trainer_delete' trainer.id %}" class="btn btn-danger">
+        <i class="fa-solid fa-trash"></i> Eliminar
+    </a>
+{% endif %}
 
 {% endblock %}

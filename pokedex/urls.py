@@ -4,6 +4,9 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
 
+    path('accounts/login/', views.CustomLoginView.as_view(), name='login'),
+    path('accounts/logout/', views.logout_user, name='logout'),
+
     path('pokemon/<int:id>/', views.pokemon_detail, name='pokemon_detail'),
     path('pokemon/agregar/', views.pokemon_create, name='pokemon_create'),
     path('pokemon/<int:id>/editar/', views.pokemon_edit, name='pokemon_edit'),

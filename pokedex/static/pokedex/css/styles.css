@@ -276,3 +276,45 @@ textarea:focus {
     border: 1px solid rgba(255,255,255,0.2);
 }
 
+
+/* Autenticación */
+.user-label {
+    color: #e7f8ff;
+    font-size: 13px;
+    margin-right: 15px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.12);
+}
+
+.logout-form {
+    display: inline;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.logout-link {
+    color: #e7f8ff;
+    font-size: 13px;
+    margin-right: 15px;
+    text-decoration: none;
+    transition: 0.3s;
+    background: transparent;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    color: white;
+    background-color: rgba(255,255,255,0.15);
+}
+
+.login-box {
+    max-width: 480px;
+    margin: 0 auto;
+}

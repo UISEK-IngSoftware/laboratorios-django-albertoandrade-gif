@@ -5,6 +5,12 @@
 
 <h3>Lista de Entrenadores</h3>
 
+<div class="mb-3">
+    <a href="{% url 'trainer_create' %}" class="btn btn-success">
+        <i class="fa-solid fa-plus"></i> Agregar Entrenador
+    </a>
+</div>
+
 <div class="row">
     {% for trainer in trainers %}
     <div class="col-md-3 mb-4">
@@ -24,13 +30,15 @@
                     <i class="fa-solid fa-eye"></i>
                 </a>
 
-                <a href="{% url 'trainer_edit' trainer.id %}" class="btn btn-primary btn-sm">
-                    <i class="fa-solid fa-pen"></i>
-                </a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'trainer_edit' trainer.id %}" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
 
-                <a href="{% url 'trainer_delete' trainer.id %}" class="btn btn-danger btn-sm">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
+                    <a href="{% url 'trainer_delete' trainer.id %}" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,6 +1,15 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Pokemon, Trainer
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
+
 from .forms import PokemonForm, TrainerForm
+from .models import Pokemon, Trainer
+
+
+class CustomLoginView(LoginView):
+    template_name = 'login_form.html'
 
 
 def index(request):
@@ -13,6 +22,7 @@ def pokemon_detail(request, id):
     return render(request, 'display_pokemon.html', {'pokemon': pokemon})
 
 
+@login_required
 def pokemon_create(request):
     if request.method == 'POST':
         form = PokemonForm(request.POST, request.FILES)
@@ -25,6 +35,7 @@ def pokemon_create(request):
     return render(request, 'pokemon_form.html', {'form': form, 'title': 'Agregar Pokemon'})
 
 
+@login_required
 def pokemon_edit(request, id):
     pokemon = get_object_or_404(Pokemon, id=id)
 
@@ -39,6 +50,7 @@ def pokemon_edit(request, id):
     return render(request, 'pokemon_form.html', {'form': form, 'title': 'Editar Pokemon'})
 
 
+@login_required
 def pokemon_delete(request, id):
     pokemon = get_object_or_404(Pokemon, id=id)
 
@@ -46,7 +58,11 @@ def pokemon_delete(request, id):
         pokemon.delete()
         return redirect('index')
 
-    return render(request, 'confirm_delete.html', {'object': pokemon, 'type': 'Pokemon'})
+    return render(
+        request,
+        'confirm_delete.html',
+        {'object': pokemon, 'type': 'Pokemon', 'cancel_url': 'index'}
+    )
 
 
 def trainer_list(request):
@@ -59,6 +75,7 @@ def trainer_detail(request, id):
     return render(request, 'trainer_detail.html', {'trainer': trainer})
 
 
+@login_required
 def trainer_create(request):
     if request.method == 'POST':
         form = TrainerForm(request.POST, request.FILES)
@@ -71,6 +88,7 @@ def trainer_create(request):
     return render(request, 'trainer_form.html', {'form': form, 'title': 'Agregar Entrenador'})
 
 
+@login_required
 def trainer_edit(request, id):
     trainer = get_object_or_404(Trainer, id=id)
 
@@ -85,6 +103,7 @@ def trainer_edit(request, id):
     return render(request, 'trainer_form.html', {'form': form, 'title': 'Editar Entrenador'})
 
 
+@login_required
 def trainer_delete(request, id):
     trainer = get_object_or_404(Trainer, id=id)
 
@@ -92,4 +111,14 @@ def trainer_delete(request, id):
         trainer.delete()
         return redirect('trainer_list')
 
-    return render(request, 'confirm_delete.html', {'object': trainer, 'type': 'Entrenador'})
+    return render(
+        request,
+        'confirm_delete.html',
+        {'object': trainer, 'type': 'Entrenador', 'cancel_url': 'trainer_list'}
+    )
+
+
+@require_POST
+def logout_user(request):
+    logout(request)
+    return redirect('index')
