@@ -3,9 +3,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
+from rest_framework import viewsets
 
 from .forms import PokemonForm, TrainerForm
 from .models import Pokemon, Trainer
+from .serializers import PokemonSerializer, TrainerSerializer
 
 
 class CustomLoginView(LoginView):
@@ -122,3 +124,18 @@ def trainer_delete(request, id):
 def logout_user(request):
     logout(request)
     return redirect('index')
+
+
+
+class TrainerViewSet(viewsets.ModelViewSet):
+    """API REST para listar, crear, consultar, actualizar y eliminar entrenadores."""
+
+    queryset = Trainer.objects.all().order_by('id')
+    serializer_class = TrainerSerializer
+
+
+class PokemonViewSet(viewsets.ModelViewSet):
+    """API REST para listar, crear, consultar, actualizar y eliminar pokemons."""
+
+    queryset = Pokemon.objects.all().order_by('id')
+    serializer_class = PokemonSerializer

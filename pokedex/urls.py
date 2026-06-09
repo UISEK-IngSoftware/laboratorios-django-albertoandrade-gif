@@ -1,7 +1,14 @@
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+
 from . import views
 
+router = DefaultRouter()
+router.register(r'entrenadores', views.TrainerViewSet, basename='entrenador')
+router.register(r'pokemons', views.PokemonViewSet, basename='pokemon')
+
 urlpatterns = [
+    path('api/', include(router.urls)),
     path('', views.index, name='index'),
 
     path('accounts/login/', views.CustomLoginView.as_view(), name='login'),
