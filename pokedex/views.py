@@ -4,10 +4,12 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from rest_framework import viewsets
+from oauth2_provider.contrib.rest_framework import OAuth2Authentication
 
 from .forms import PokemonForm, TrainerForm
 from .models import Pokemon, Trainer
 from .serializers import PokemonSerializer, TrainerSerializer
+from .permissions import ReadOnlyOrOAuth2WriteScope
 
 
 class CustomLoginView(LoginView):
@@ -132,6 +134,8 @@ class TrainerViewSet(viewsets.ModelViewSet):
 
     queryset = Trainer.objects.all().order_by('id')
     serializer_class = TrainerSerializer
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [ReadOnlyOrOAuth2WriteScope]
 
 
 class PokemonViewSet(viewsets.ModelViewSet):
@@ -139,3 +143,5 @@ class PokemonViewSet(viewsets.ModelViewSet):
 
     queryset = Pokemon.objects.all().order_by('id')
     serializer_class = PokemonSerializer
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [ReadOnlyOrOAuth2WriteScope]

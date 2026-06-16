@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'oauth2_provider',
     'pokedex'
 ]
 
@@ -132,9 +133,15 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 
 
-# Configuración básica para la API REST del laboratorio 4
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+}
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Permite consultar datos de la API',
+        'write': 'Permite crear, actualizar y eliminar datos de la API',
+    }
 }
