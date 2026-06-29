@@ -84,6 +84,33 @@ En caso de querer desactivar el ambiente usar
 deactivate
 ~~~
 
+
+## Integración con el cliente React (Laboratorio 10)
+
+El cliente React se ejecuta normalmente en `http://localhost:5173` y consume esta API en `http://localhost:8000/api`. Como son orígenes distintos, el backend incluye `django-cors-headers` y permite únicamente los orígenes locales de Vite:
+
+- `http://localhost:5173`
+- `http://127.0.0.1:5173`
+
+Después de actualizar el proyecto, instala la nueva dependencia:
+
+```bash
+pip install -r requirements.txt
+```
+
+Luego inicia Django:
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+La lista de Pokémon queda disponible en:
+
+```text
+http://localhost:8000/api/pokemons/
+```
+
 ## Comandos útiles
 
 ### Iniciar servidor
@@ -245,3 +272,46 @@ Para los siguientes pasos se deberán seguir las **instrucciones del docente en 
         }
     }
     ```
+
+## Pruebas completas con Thunder Client y OAuth2
+
+El proyecto incluye la colección mostrada en clase dentro de `thunder-client/`:
+
+- `Pokedex`: obtener, agregar, editar y eliminar Pokémon.
+- `Trainer`: listar, agregar, editar y eliminar entrenadores.
+- `User Management`: solicitud `LoginPokedex` para obtener el token OAuth2.
+
+### 1. Preparar OAuth2
+
+Después de instalar las dependencias, ejecuta:
+
+```powershell
+python manage.py migrate
+```
+
+Si todavía no existe el usuario administrador:
+
+```powershell
+python manage.py createsuperuser
+```
+
+Crea o actualiza la aplicación OAuth2 con el comando incluido:
+
+```powershell
+python manage.py setup_oauth_client --username admin --client-id TU_CLIENT_ID --client-secret TU_CLIENT_SECRET
+```
+
+El cliente queda configurado como `confidential` y con el grant type `password`, que es el utilizado por `LoginPokedex`.
+
+### 2. Importar la colección
+
+En Thunder Client:
+
+1. Abre la sección **Env** e importa `thunder-client/Pokedex.local.env`.
+2. Cambia la variable `password` por la contraseña real del usuario de Django.
+3. Abre **Collections** e importa `thunder-client/thunder-collection_Pokedex.json`.
+4. Ejecuta primero `LoginPokedex`.
+5. La prueba de la solicitud almacena `json.access_token` en `{{access_token}}`.
+6. Ejecuta las solicitudes POST, PUT y DELETE.
+
+El archivo `Pokedex.local.env` contiene credenciales locales y está excluido de Git. Para compartir el proyecto utiliza `Pokedex.example.env`.

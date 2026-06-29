@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'oauth2_provider',
     'pokedex'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -145,3 +147,11 @@ OAUTH2_PROVIDER = {
         'write': 'Permite crear, actualizar y eliminar datos de la API',
     }
 }
+
+# Permite que el cliente React de Vite consuma la API durante el desarrollo.
+# Se restringen los orígenes en lugar de habilitar CORS para cualquier sitio.
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+]
+
